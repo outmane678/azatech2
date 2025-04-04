@@ -26,6 +26,7 @@ public class UserService implements UserDetailsService {
             var userObj = user.get();
             return User.withUsername(userObj.getEmail()) // Utilisation de l'email
                 .password(userObj.getPassword())
+                .authorities("ROLE_" + userObj.getRole().name()) // ajout du role 
                 .build(); // Pas de gestion de rôle ici
         } else {
             throw new UsernameNotFoundException("User not found with email: " + email);

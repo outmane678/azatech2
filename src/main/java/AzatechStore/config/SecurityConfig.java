@@ -32,6 +32,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()  // Swagger
                 .requestMatchers("/signup", "/login", "/css/**", "/js/**", "/img/**", "/assets/**", "/").permitAll()  // Public
+
+                .requestMatchers("/admin/**").hasRole("ADMIN") // 🔐 routes protégées pour les admins
+                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") // 🔐 accessible par les deux rôles
                 .anyRequest().authenticated()  // Toutes les autres requêtes nécessitent une authentification
             )
             .formLogin(form -> form

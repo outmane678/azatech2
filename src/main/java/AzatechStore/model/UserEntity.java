@@ -22,16 +22,21 @@ public class UserEntity {
     @NotBlank(message = "Password is mandatory")
     private String password;
 
+    @Enumerated(EnumType.STRING) // Stocke l'énumération sous forme de String dans la BD
+    private Role role;
+
   
 
     // Constructeurs
     public UserEntity() {
     }
 
-    public UserEntity(int id,String username, String email, String password) {
+    public UserEntity(Long id,String username, String email, String password, Role role) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     // Getters et Setters
@@ -47,10 +52,22 @@ public class UserEntity {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
+    public Role getRole() {
+        return role;
+    }
+    
+    public void setRole(Role role) {
+        this.role = role;
+    }
+    
+
 
 
     @Override
     public String toString() {
         return "User{id=" + id + ", username='" + username + "', email='" + email + "'}";
     }
+
+    
+
 }
